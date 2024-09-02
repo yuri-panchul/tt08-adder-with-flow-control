@@ -9,20 +9,20 @@ module adder_with_flow_control
     parameter width = 8
 )
 (
-    input                clk,
-    input                rst,
+    input                    clk,
+    input                    rst,
 
-    input                a_vld,
-    output               a_rdy,
-    input  [width - 1:0] a_data,
+    input                    a_vld,
+    output                   a_rdy,
+    input  [width     - 1:0] a_data,
 
-    input                b_vld,
-    output               b_rdy,
-    input  [width - 1:0] b_data,
+    input                    b_vld,
+    output                   b_rdy,
+    input  [width     - 1:0] b_data,
 
-    output               sum_vld,
-    input                sum_rdy,
-    output [width - 1:0] sum_data
+    output                   sum_vld,
+    input                    sum_rdy,
+    output [width + 1 - 1:0] sum_data
 );
 
     //------------------------------------------------------------------------
@@ -80,23 +80,19 @@ module adder_with_flow_control
     // assign a_down_rdy = ...
     // assign b_down_rdy = ...
 
-    // START_SOLUTION
-
-    wire               sum_up_vld = a_down_vld & b_down_vld;
-    wire               sum_up_rdy;
-    wire [width - 1:0] sum_up_data  = a_down_data  + b_down_data;
+    wire                   sum_up_vld  = a_down_vld  & b_down_vld;
+    wire                   sum_up_rdy;
+    wire [width + 1 - 1:0] sum_up_data = a_down_data + b_down_data;
 
     wire   nobody_vld = ~ a_down_vld & ~ b_down_vld;
 
     assign a_down_rdy = (b_down_vld & sum_up_rdy) | nobody_vld;
     assign b_down_rdy = (a_down_vld & sum_up_rdy) | nobody_vld;
 
-    // END_SOLUTION
-
     //------------------------------------------------------------------------
 
     `FLOW_CONTROL_BUFFER
-    # (.width (width))
+    # (.width (width + 1))
     buffer_sum
     (
         .clk       ( clk         ),
