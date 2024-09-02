@@ -24,7 +24,7 @@ module tb ();
   wire [7:0] uio_oe;
 
   // Replace tt_um_example with your module name:
-  tt_um_yuri_pancul_adder_with_flow_control user_project (
+  tt_um_yuri_panchul_adder_with_flow_control user_project (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
