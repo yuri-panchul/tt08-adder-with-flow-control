@@ -11,14 +11,14 @@ module tb
 
     // Upstream
 
-    logic                   a_valid, b_valid;
-    wire                    a_ready, b_ready;
+    logic                   a_vld, b_vld;
+    wire                    a_rdy, b_rdy;
     logic [width     - 1:0] a_data,  b_data;
 
     // Downstream
 
-    wire                    sum_valid;
-    logic                   sum_ready;
+    wire                    sum_vld;
+    logic                   sum_rdy;
     wire  [width + 1 - 1:0] sum_data;
 
     //------------------------------------------------------------------------
@@ -54,28 +54,28 @@ module tb
     begin
         $write ("time %7d cycle %5d", $time, cycle ++);
 
-        if ( rst       ) $write ( " rst"       ); else $write ( "    "       );
+        if ( rst     ) $write ( " rst"     ); else $write ( "    "       );
 
-        if ( a_valid   ) $write ( " a_valid"   ); else $write ( "        "   );
-        if ( a_ready   ) $write ( " a_ready"   ); else $write ( "        "   );
+        if ( a_vld   ) $write ( " a_vld"   ); else $write ( "      "   );
+        if ( a_rdy   ) $write ( " a_rdy"   ); else $write ( "      "   );
 
-        if (a_valid & a_ready)
+        if (a_vld & a_rdy)
             $write (" %h", a_data);
         else
             $write ("  ");
 
-        if ( b_valid   ) $write ( " b_valid"   ); else $write ( "        "   );
-        if ( b_ready   ) $write ( " b_ready"   ); else $write ( "        "   );
+        if ( b_vld   ) $write ( " b_vld"   ); else $write ( "      "   );
+        if ( b_rdy   ) $write ( " b_rdy"   ); else $write ( "      "   );
 
-        if (b_valid & b_ready)
+        if (b_vld & b_rdy)
             $write (" %h", b_data);
         else
             $write ("  ");
 
-        if ( sum_valid ) $write ( " sum_valid" ); else $write ( "          " );
-        if ( sum_ready ) $write ( " sum_ready" ); else $write ( "          " );
+        if ( sum_vld ) $write ( " sum_vld" ); else $write ( "        " );
+        if ( sum_rdy ) $write ( " sum_rdy" ); else $write ( "        " );
 
-        if (sum_valid & sum_ready)
+        if (sum_vld & sum_rdy)
             $write (" %h", sum_data);
         else
             $write ("  ");
@@ -102,13 +102,13 @@ module tb
         end
         else if (was_reset)
         begin
-            if (a_valid & a_ready)
+            if (a_vld & a_rdy)
                 a_queue.push_back (a_data);
 
-            if (b_valid & b_ready)
+            if (b_vld & b_rdy)
                 b_queue.push_back (b_data);
 
-            if (sum_valid & sum_ready)
+            if (sum_vld & sum_rdy)
             begin
                 if (a_queue.size () == 0 || b_queue.size () == 0)
                 begin
@@ -177,9 +177,9 @@ module tb
         begin
             n_cycles <= n_cycles + 1'd1;
 
-            if ( a_valid   & a_ready   ) a_count   <= a_count   + 1'd1;
-            if ( b_valid   & b_ready   ) b_count   <= b_count   + 1'd1;
-            if ( sum_valid & sum_ready ) sum_count <= sum_count + 1'd1;
+            if ( a_vld   & a_rdy   ) a_count   <= a_count   + 1'd1;
+            if ( b_vld   & b_rdy   ) b_count   <= b_count   + 1'd1;
+            if ( sum_vld & sum_rdy ) sum_count <= sum_count + 1'd1;
         end
 
     //----------------------------------------------------------------------
@@ -211,9 +211,9 @@ module tb
         //--------------------------------------------------------------------
         // Initialization
 
-        a_valid   <= 1'b0;
-        b_valid   <= 1'b0;
-        sum_ready <= 1'b0;
+        a_vld   <= 1'b0;
+        b_vld   <= 1'b0;
+        sum_rdy <= 1'b0;
 
         //--------------------------------------------------------------------
         // Reset
@@ -227,41 +227,41 @@ module tb
 
         $display ("*** Run back-to-back");
 
-        a_valid   <= 1'b1;
-        b_valid   <= 1'b1;
-        sum_ready <= 1'b1;
+        a_vld   <= 1'b1;
+        b_vld   <= 1'b1;
+        sum_rdy <= 1'b1;
 
         repeat (20) @ (posedge clk);
 
         $display ("*** Supplying only \"a\"");
 
-        // b_valid is still 1
+        // b_vld is still 1
 
-        while (~ b_ready)  // Make sure b_valid went through
+        while (~ b_rdy)  // Make sure b_vld went through
             @ (posedge clk);
 
-        b_valid <= 1'b0;
+        b_vld <= 1'b0;
 
         repeat (20) @ (posedge clk);
 
         $display ("*** Supplying only \"b\"");
 
-        b_valid <= 1'b1;
+        b_vld <= 1'b1;
 
-        // a_valid is still 1
+        // a_vld is still 1
 
-        while (~ a_ready)  // Make sure a_valid went through
+        while (~ a_rdy)  // Make sure a_vld went through
             @ (posedge clk);
 
-        a_valid  <= 1'b0;
+        a_vld  <= 1'b0;
 
         repeat (20) @ (posedge clk);
 
         $display ("*** Applying backpressure");
 
-        a_valid   <= 1'b1;
-        b_valid   <= 1'b1;
-        sum_ready <= 1'b0;
+        a_vld   <= 1'b1;
+        b_vld   <= 1'b1;
+        sum_rdy <= 1'b0;
 
         repeat (20) @ (posedge clk);
 
@@ -273,36 +273,36 @@ module tb
             assert (a_count <= max_transfers);
 
             if (   a_count == max_transfers
-                    | (a_count == max_transfers - 1 & a_valid & a_ready))
+                    | (a_count == max_transfers - 1 & a_vld & a_rdy))
             begin
-                a_valid <= '0;
+                a_vld <= '0;
             end
-            else if (~ a_valid | a_ready)
+            else if (~ a_vld | a_rdy)
             begin
-                a_valid <= $urandom ();
+                a_vld <= $urandom ();
             end
 
             // If this assertion fails, it is an internal error in the testbench
             assert (b_count <= max_transfers);
 
             if (   b_count == max_transfers
-                    | (b_count == max_transfers - 1 & b_valid & b_ready))
+                    | (b_count == max_transfers - 1 & b_vld & b_rdy))
             begin
-                b_valid <= '0;
+                b_vld <= '0;
             end
-            else if (~ b_valid | b_ready)
+            else if (~ b_vld | b_rdy)
             begin
-                b_valid <= $urandom ();
+                b_vld <= $urandom ();
             end
 
-            sum_ready <= $urandom ();
+            sum_rdy <= $urandom ();
 
             @ (posedge clk);
         end
 
         $display ("*** Draining the results");
 
-        sum_ready <= 1'b1;
+        sum_rdy <= 1'b1;
         repeat (depth * 2 + 3) @ (posedge clk);
 
         $display ("%s PASS", `__FILE__);
@@ -315,13 +315,13 @@ module tb
     always @ (posedge clk)
         if (rst)
             a_data <= '0;
-        else if (a_valid & a_ready)
+        else if (a_vld & a_rdy)
             a_data <= $urandom;
 
     always @ (posedge clk)
         if (rst)
             b_data <= '0;
-        else if (b_valid & b_ready)
+        else if (b_vld & b_rdy)
             b_data <= $urandom;
 
 endmodule
