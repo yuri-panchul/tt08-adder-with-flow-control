@@ -5,7 +5,15 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+
+PROJECT_SOURCES = project.sv                     \
+    adder_with_flow_control.sv                   \
+    fcb_1_single_allows_back_to_back.sv          \
+    fcb_2_single_half_perf_no_comb_path.sv       \
+    fcb_3_single_for_pipes_with_global_stall.sv  \
+    fcb_4_wrapped_2_deep_fifo.sv                 \
+    fcb_5_double_buffer_from_dally_harting.sv    \
+    ff_fifo_pow2_depth.sv
 
 ifneq ($(GATES),yes)
 
