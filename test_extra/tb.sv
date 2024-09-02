@@ -11,22 +11,22 @@ module tb
 
     // Upstream
 
-    logic               a_valid, b_valid;
-    wire                a_ready, b_ready;
-    logic [width - 1:0] a_data,  b_data;
+    logic                   a_valid, b_valid;
+    wire                    a_ready, b_ready;
+    logic [width     - 1:0] a_data,  b_data;
 
     // Downstream
 
-    wire                sum_valid;
-    logic               sum_ready;
-    wire  [width - 1:0] sum_data;
+    wire                    sum_valid;
+    logic                   sum_ready;
+    wire  [width + 1 - 1:0] sum_data;
 
     //------------------------------------------------------------------------
     // DUT instantiation
 
 
-    a_plus_b_using_double_buffers
-    # (.width (width), .depth (depth))
+    adder_with_flow_control
+    # (.width (width))
     dut (.*);
 
     //------------------------------------------------------------------------
@@ -86,8 +86,8 @@ module tb
     //------------------------------------------------------------------------
     // Modeling and checking
 
-    logic [width - 1:0] a_queue [$], b_queue [$];
-    logic [width - 1:0] sum_data_expected;
+    logic [width     - 1:0] a_queue [$], b_queue [$];
+    logic [width + 1 - 1:0] sum_data_expected;
 
     logic was_reset = 0;
 

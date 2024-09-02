@@ -32,7 +32,7 @@ module adder_with_flow_control
     wire [width - 1:0] a_down_data;
 
     `FLOW_CONTROL_BUFFER
-    # (.width (width))
+    # (.w (width))
     buffer_a
     (
         .clk       ( clk         ),
@@ -54,7 +54,7 @@ module adder_with_flow_control
     wire [width - 1:0] b_down_data;
 
     `FLOW_CONTROL_BUFFER
-    # (.width (width))
+    # (.w (width))
     buffer_b
     (
         .clk       ( clk         ),
@@ -92,7 +92,7 @@ module adder_with_flow_control
     //------------------------------------------------------------------------
 
     `FLOW_CONTROL_BUFFER
-    # (.width (width + 1))
+    # (.w (width + 1))
     buffer_sum
     (
         .clk       ( clk         ),
