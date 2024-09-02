@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_adder_with_flow_control
+module tt_um_yuri_pancul_adder_with_flow_control
 (
     input  [7:0] ui_in,    // Dedicated inputs
     output [7:0] uo_out,   // Dedicated outputs
