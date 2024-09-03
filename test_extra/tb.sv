@@ -1,6 +1,6 @@
 module tb
 # (
-    parameter width = 4, depth = 4
+    parameter width = 4, depth = 5
 );
 
     //------------------------------------------------------------------------
