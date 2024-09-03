@@ -21,7 +21,9 @@ module fcb_1_single_allows_back_to_back
 );
 
     always_ff @ (posedge clk)
-        if (up_rdy)
+        if (rst)
+            down_data <= '0;
+        else if (up_rdy)
             down_data <= up_data;
 
     always_ff @ (posedge clk or posedge rst)
