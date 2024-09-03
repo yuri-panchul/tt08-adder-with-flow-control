@@ -38,3 +38,4 @@ async def test_project(dut):
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
+    await ClockCycles(dut.clk, 100)
