@@ -1,0 +1,97 @@
+FCB1
+
+Category	Cells	Count
+Fill	decap fill	1422
+Tap	tapvpwrvgnd	225
+Buffer	buf clkbuf	34
+Misc	conb dlygate4sd3	25
+Flip Flops	dfxtp dfrtp	16
+Combo Logic	and2b a21bo a22o a2bb2o a31o a21oi o2bb2a a21o	11
+Multiplexer	mux2	10
+NAND	nand2b nand2	8
+OR	xor2 or2	5
+AND	and2 and4	3
+NOR	xnor2	1
+113 total cells (excluding fill and tap cells)
+
+FCB2
+
+Routing stats
+Utilisation (%)	Wire length (um)
+4.98	1656
+Cell usage by Category
+Category	Cells	Count
+Fill	decap fill	1418
+Tap	tapvpwrvgnd	225
+Buffer	buf clkbuf	34
+Misc	conb dlygate4sd3	23
+Flip Flops	dfxtp dfrtp	16
+Combo Logic	o21ai a21oi a22o or3b a21bo a31o o21a o2bb2a	15
+Multiplexer	mux2	8
+OR	or3 or2	6
+AND	and2 and4	4
+NAND	nand2	4
+Inverter	inv	3
+113 total cells (excluding fill and tap cells)
+
+FCB3
+
+Utilisation (%)	Wire length (um)
+5.15	1749
+Cell usage by Category
+Category	Cells	Count
+Fill	decap fill	1419
+Tap	tapvpwrvgnd	225
+Buffer	buf clkbuf	34
+Misc	conb dlygate4sd3	24
+Flip Flops	dfxtp dfrtp	16
+Combo Logic	o21ai a22o a2bb2o a31o o21a o2bb2a	11
+Multiplexer	mux2	10
+NAND	nand2	9
+OR	xor2 or2	4
+AND	and2 and4 a21boi	3
+Inverter	inv	2
+NOR	xnor2	1
+114 total cells (excluding fill and tap cells)
+
+FCB4
+
+Utilisation (%)	Wire length (um)
+12.37	3767
+Cell usage by Category
+Category	Cells	Count
+Fill	decap fill	1348
+Tap	tapvpwrvgnd	225
+Misc	conb dlygate4sd3	51
+Multiplexer	mux2	39
+Flip Flops	dfxtp dfrtp	38
+Buffer	buf clkbuf	37
+NOR	xnor2 nor2	16
+OR	xor2 or2	10
+Combo Logic	and3b and2b a221o a32o a21oi o21bai	10
+NAND	nand2 nand2b	9
+AND	and2 and3	7
+Inverter	inv	3
+220 total cells (excluding fill and tap cells)
+
+FCB5
+
+Routing stats
+Utilisation (%)	Wire length (um)
+10.45	3158
+Cell usage by Category
+Category	Cells	Count
+Fill	decap fill	1365
+Tap	tapvpwrvgnd	225
+Multiplexer	mux2	43
+Misc	conb dlygate4sd3	41
+Buffer	buf clkbuf	36
+Flip Flops	dfxtp dfstp dfrtp	35
+Combo Logic	o21ai and2b a31o and3b o221a o21ba a22o	12
+NAND	nand2 nand2b	8
+OR	or2 xor2	5
+NOR	nor2 xnor2	3
+AND	and2 a21boi	3
+Inverter	inv	2
+188 total cells (excluding fill and tap cells)
+
