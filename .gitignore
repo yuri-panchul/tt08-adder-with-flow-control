@@ -10,5 +10,5 @@ test/sim_build
 test/__pycache__/
 test/results.xml
 test/gate_level_netlist.v
-extra_test/run/
-extra_test/log.txt
+test_extra/run/
+test_extra/log.txt
