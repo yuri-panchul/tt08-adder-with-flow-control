@@ -1,5 +1,5 @@
-   `define FLOW_CONTROL_BUFFER fcb_1_single_allows_back_to_back
-// `define FLOW_CONTROL_BUFFER fcb_2_single_half_perf_no_comb_path
+// `define FLOW_CONTROL_BUFFER fcb_1_single_allows_back_to_back
+   `define FLOW_CONTROL_BUFFER fcb_2_single_half_perf_no_comb_path
 // `define FLOW_CONTROL_BUFFER fcb_3_single_for_pipes_with_global_stall
 // `define FLOW_CONTROL_BUFFER fcb_4_wrapped_2_deep_fifo
 // `define FLOW_CONTROL_BUFFER fcb_5_double_buffer_from_dally_harting
