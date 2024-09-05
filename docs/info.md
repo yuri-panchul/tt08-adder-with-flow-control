@@ -14,7 +14,7 @@ control for each argument and the result.
 
 The design is an answer to an RTL job interview question described by Yuri
 Panchul in an [article](https://habr.com/en/articles/706484/) (in Russian)
-on a Habr website. The design is used as a part of
+on Habr website. The design is used as a part of
 [systemverilog-homework](https://github.com/yuri-panchul/systemverilog-homework)
 and
 [basics-graphics-music](https://github.com/yuri-panchul/basics-graphics-music)
