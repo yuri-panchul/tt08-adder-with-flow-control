@@ -11,7 +11,8 @@ You can also include images in this folder and reference them in the markdown. E
 
 **adder_with_flow_control** design contains an adder with a separate flow control for each argument and the result.
 
-Flow control is implemented using one of the following pipeline register modules.
+Flow control is implemented
+using one of the following pipeline register/buffer modules.
 The choice is specified inside the *adder_with_flow_control.sv* module using
 the define macro *FLOW_CONTROL_BUFFER*.
 
@@ -21,7 +22,7 @@ the define macro *FLOW_CONTROL_BUFFER*.
 * fcb_4_wrapped_2_deep_fifo
 * fcb_5_double_buffer_from_dally_harting
 
-More details about the register modules:
+More details about the modules:
 
 ### fcb_1_single_allows_back_to_back
 
@@ -32,7 +33,7 @@ which can introduce timing problems in deep pipelines.
 
 ### fcb_2_single_half_perf_no_comb_path
 
-This solution has no combinational path at all,
+This flow-controlled register has no combinational path at all,
 but cannot sustain a back-to-back stream of data.
 However, it requires fewer gates than *fcb_4_wrapped_2_deep_fifo*
 or *fcb_5_double_buffer_from_dally_harting*.
@@ -46,14 +47,14 @@ without parts of it making progress.
 
 ### fcb_4_wrapped_2_deep_fifo
 
-The most high-bandwidth solution
+The most high-bandwidth flow-controlled buffer
 among those that have no combinational path
 between down_rdy and up_rdy.
 However this solution occupies the largest area.
 
 ### fcb_5_double_buffer_from_dally_harting
 
-This pipelined register is Yuri Panchul's edition of the code derived from 
+This pipeline buffer is Yuri Panchul's edition of the code derived from 
 *Digital Design: A Systems Approach by William James Dally and R. Curtis Harting. 2012*.
 It has high bandwidth and no combinational path between down_rdy and up_rdy,
 but not the highest possible bandwidth for this *adder_with_flow_control*
